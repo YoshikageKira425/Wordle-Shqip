@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+.keyboard-key {
+    @apply w-10 h-12 bg-[#08315e] text-xl rounded-md text-white font-bold;
+
+}
+.keyboard-special-key {
+    @apply w-16 h-12 bg-[#08315e] text-xl rounded-md text-white font-bold;
+
+}
+.slot{
+    @apply inline-flex w-13 h-13 m-1 bg-[#08315e] border-4 border-[#3a3a3c] text-white font-bold items-center justify-center align-top transition-all duration-500 ease-in-out;
+
+}
+
+@media screen and (max-width: 500px) {
+    .row:has(> .slot:nth-child(7)) .slot {
+        width: 30px;
+        height: 30px;
+    }
+    .row:has(> .slot:nth-child(6)):not(:has(> .slot:nth-child(7))) .slot {
+        width: 43px;
+        height: 43px;
+    }
+
+    .keyboard-key {
+        width: 30px;
+        font-size: 17px;
+    }
+    .keyboard-special-key {
+        width: 43px;
+        font-size: 17px;
+    }
+
+    #description {
+        font-size: .8rem;
+    }
+    #restart
+    {
+        font-size: 1rem;
+    }
+  }
+  

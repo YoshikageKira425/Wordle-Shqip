@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Wordle</title>
+
+    <link rel="stylesheet" href="Style/src/output.css">
+    <link rel="stylesheet" href="Style/animation.css">
+    <link rel="shortcut icon" href="Style/favicon.png" type="image/x-icon">
+    
+    <!-- Mobile-specific footer styling -->
+    <style>
+      @media screen and (max-width: 1000px){
+          footer{
+              @apply absolute bottom-0;
+          }
+      }
+  </style>
+</head>
+<body style="background-color: #b2c7d9; font-family: 'Times New Roman', Times, serif;">
+  <!-- Header section with game title -->
+  <section class="w-full h-15 mb-5" style="background-color: #08315e;">
+    <h1 class="text-center text-white font-bold text-3xl pl-2 pt-2">Wordle Shqip </h1>
+  </section>
+
+  <!-- Game description/status message container -->
+  <section class="flex justify-center mt-3 mb-3">
+      <div class="w-[60%] h-fit rounded-2xl p-3 bg-[#08315e] shadow-lg shadow-[#2d2d55]">
+          <p id="description" class="text-white text-xl font-bold text-center"></p>
+      </div>
+  </section>
+
+  <!-- Game board section - contains 4 rows for word attempts -->
+  <section id="board" class="px-4">
+      <!-- Each div represents a row where letters will appear -->
+      <div class="text-center row"></div>
+      <div class="text-center row"></div>
+      <div class="text-center row"></div>
+      <div class="text-center row"></div>
+  </section>
+
+  
+  <!-- Virtual keyboard section -->
+  <section id="keyboard">
+    <div class="text-center m-3">
+      <button id="key" onclick='anyKey("q")' class="keyboard-key">Q</button>
+      <button id="key" onclick='anyKey("w")' class="keyboard-key">W</button>
+      <button id="key" onclick='anyKey("e")' class="keyboard-key">E</button>
+      <button id="key" onclick='anyKey("r")' class="keyboard-key">R</button>
+      <button id="key" onclick='anyKey("t")' class="keyboard-key">T</button>
+      <button id="key" onclick='anyKey("y")' class="keyboard-key">Y</button>
+      <button id="key" onclick='anyKey("u")' class="keyboard-key">U</button>
+      <button id="key" onclick='anyKey("i")' class="keyboard-key">I</button>
+      <button id="key" onclick='anyKey("o")' class="keyboard-key">O</button>
+      <button id="key" onclick='anyKey("p")' class="keyboard-key">P</button>
+    </div>
+  
+    <div class="text-center m-3">
+      <button id="key" onclick='anyKey("a")' class="keyboard-key">A</button>
+      <button id="key" onclick='anyKey("s")' class="keyboard-key">S</button>
+      <button id="key" onclick='anyKey("d")' class="keyboard-key">D</button>
+      <button id="key" onclick='anyKey("f")' class="keyboard-key">F</button>
+      <button id="key" onclick='anyKey("g")' class="keyboard-key">G</button>
+      <button id="key" onclick='anyKey("h")' class="keyboard-key">H</button>
+      <button id="key" onclick='anyKey("j")' class="keyboard-key">J</button>
+      <button id="key" onclick='anyKey("k")' class="keyboard-key">K</button>
+      <button id="key" onclick='anyKey("l")' class="keyboard-key">L</button>
+    </div>
+
+    <div class="text-center m-3">
+      <button onclick='enterKey()' id="Enter" class="keyboard-special-key">Enter</button>
+      <button id="key" onclick='anyKey("z")' class="keyboard-key">Z</button>
+      <button id="key" onclick='anyKey("x")' class="keyboard-key">X</button>
+      <button id="key" onclick='anyKey("c")' class="keyboard-key">C</button>
+      <button id="key" onclick='anyKey("v")' class="keyboard-key">V</button>
+      <button id="key" onclick='anyKey("b")' class="keyboard-key">B</button>
+      <button id="key" onclick='anyKey("n")' class="keyboard-key">N</button>
+      <button id="key" onclick='anyKey("m")' class="keyboard-key">M</button>
+      <button onclick='removeKey()' id="Del" class="keyboard-special-key">Del</button>
+    </div>
+  </section>
+
+  <section class="flex justify-center mt-3 mb-3">
+    <button id="restart" class="font-bold text-2xl text-white bg-[#08315e] p-3 rounded-2xl" onclick="startGame()">Rifilloni Lojen</button>
+  </section>  
+
+  <footer class="w-full bg-[#08315e] py-6 mt-auto shadow-inner">
+      <p class="text-center text-white text-sm">© 2025 Wordle Shqip. Të gjitha të drejtat e rezervuara.</p>
+  </footer>
+
+  <div id="overlay"></div>
+
+  <script src="Script/index-script.js"></script>
+</body>
+</html>
