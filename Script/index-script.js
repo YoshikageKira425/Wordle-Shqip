@@ -1,12 +1,16 @@
-const row = Array.from(document.getElementsByClassName("row"));
+// The game info
 let correctWord = "";
 let description = "";
-
 let rowIndex = 0;
 let lettersIndex = 0;
 let word = "";
 let gameFinished = false;
 
+// This variable is used to prevent the enter key from being pressed multiple times in quick succession
+let isAnimationPlaying = false;
+
+// Html elements
+const row = Array.from(document.getElementsByClassName("row"));
 const keyboard = document.querySelectorAll("#key");
 const enterKeyboard = document.getElementById("Enter");
 const delKeyboard = document.getElementById("Del");
@@ -15,6 +19,11 @@ const overlay = document.getElementById("overlay");
 startGame();
 
 function startGame() {
+    document.body.classList.add("fade-in");
+    setTimeout(() => {
+        document.body.classList.remove("fade-in");
+    }, 1000);
+
     // Reset game state
     rowIndex = 0;
     lettersIndex = 0;
@@ -27,7 +36,7 @@ function startGame() {
     overlay.innerHTML = "";
 
     // Fetch random word data
-    fetch('Script/date.json')
+    fetch('Script/data.json')
         .then(res => res.json())
         .then(data => {
             const { word: fetchedWord, description: desc, letters } = data[Math.floor(Math.random() * data.length)];
@@ -43,11 +52,19 @@ function startGame() {
                     r.appendChild(span);
                 }
             });
+        })
+        .catch(err => {
+            console.error("Error fetching data:", err);
+            document.getElementById("description").textContent = "Ka ndodhur një gabim. Ju lutem provoni përsëri.";
         });
 }
 
 //Keyboard events
 document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        window.location.href = "home.html";
+    }
+
     if (gameFinished) return;
 
     if (e.key === "Backspace" && lettersIndex > 0) {
@@ -67,6 +84,10 @@ document.addEventListener("keydown", (e) => {
 });
 
 function enterKey() {
+    if (gameFinished || isAnimationPlaying) 
+        return;
+
+    isAnimationPlaying = true;
     animateKey(enterKeyboard, 'letter-typed');
 
     row[rowIndex].childNodes.forEach((cell, i) => {
@@ -98,6 +119,7 @@ function enterKey() {
             word = "";
             lettersIndex = 0;
             rowIndex++;
+            isAnimationPlaying = false;
         }, 300);
     }, 350 * word.length);
 }
@@ -193,6 +215,9 @@ function updateKeyboardColors() {
         const keyElement = keyboard[i];
         const keyChar = keyElement.textContent.toLowerCase();
     
+        if (keyElement.style.backgroundColor === "green") 
+            continue;
+
         if (correctWord.includes(keyChar)) {
             if (correctWord.indexOf(keyChar) === word.indexOf(keyChar)) {
                 keyElement.style.backgroundColor = "green";
